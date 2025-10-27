@@ -5,11 +5,14 @@ import { ShopContext } from "../context/ShopContext";
 import ProductItem from "./ProductItem";
 const BestSeller = () => {
   const { products } = useContext(ShopContext);
+  console.log("pros", products);
   const [BestSeller, SetBestSeller] = useState([]);
   useEffect(() => {
-    const bestSeller = products.filter((product) => product.bestseller);
-    SetBestSeller(bestSeller.slice(0, 5));
-  }, []);
+    if (Array.isArray(products)) {
+      const bestSeller = products.filter((product) => product.bestseller);
+      SetBestSeller(bestSeller.slice(0, 5));
+    }
+  }, [products]);
   return (
     <div className="my-10">
       <div className="text-center py-8 text-3xl">
@@ -23,7 +26,7 @@ const BestSeller = () => {
           <ProductItem
             key={product._id}
             id={product._id}
-            image={product.image}
+            images={product.images}
             name={product.name}
             price={product.price}
           ></ProductItem>

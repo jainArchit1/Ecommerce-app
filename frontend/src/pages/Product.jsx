@@ -11,13 +11,13 @@ const Product = () => {
   console.log(productId);
   const { products, currency, addToCart } = useContext(ShopContext);
   const [productData, setProductData] = useState(false);
-  const [image, setImage] = useState("");
+  const [images, setImages] = useState("");
   const [size, setSize] = useState("");
   const Fetchdata = () => {
     products.map((product) => {
       if (product._id === productId) {
         setProductData(product);
-        setImage(product.image[0]);
+        setImages(product.images[0]);
         return null;
       }
     });
@@ -32,14 +32,14 @@ const Product = () => {
         {/* product image */}
         <div className="flex-1 flex flex-col-reverse  gap-3 sm:flex-row">
           <div className="flex sm:flex-col overflow-x-auto sm:overflow-y-scroll justify-between sm:justify-normal sm:w-[18.7%] w-full">
-            {productData.image.map((image, index) => {
+            {productData.images.map((images, index) => {
               return (
                 <img
-                  src={image}
+                  src={images}
                   key={index}
                   className="w-[24%] sm:mb-3 sm:w-full flex-shrink-0 cursor-pointer"
                   onClick={() => {
-                    setImage(image);
+                    setImages(images);
                   }}
                 ></img>
               );
@@ -47,7 +47,7 @@ const Product = () => {
           </div>
           {/* main image */}
           <div className="w-full sm:w-[80%] ">
-            <img src={image} className="w-full h-auto"></img>
+            <img src={images} className="w-full h-auto"></img>
           </div>
         </div>
         {/*  product description*/}

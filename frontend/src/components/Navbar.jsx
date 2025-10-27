@@ -12,37 +12,38 @@ import { useContext } from "react";
 const Navbar = () => {
   // console.log("Navbar rendered");
   const [visible, SetVisible] = useState(false);
-  const { showsearch, setShowSearch } = useContext(ShopContext);
+  const { showsearch, setShowSearch, countProduct } = useContext(ShopContext);
   return (
     <div className="flex justify-between items-center py-5 font-medium">
       {/* logo */}
       {/* first div */}
-      <img src={logo} className="w-36"></img>
+      <img src={logo} className="w-36" alt=""></img>
       {/* links */}
       {/* second div */}
       <ul className="hidden sm:flex gap-5 text-sm text-gray-700">
         <NavLink to="/" className="flex flex-col items-center gap-1">
           <p>HOME</p>
-          <hr className="w-2/4 h border-none h-[1.5px] bg-gray-700 hidden"></hr>
+          <hr className="w-2/4  border-none h-[1.5px] bg-gray-700 hidden" />
         </NavLink>
         <NavLink to="/collection" className="flex flex-col items-center gap-1">
           <p>COLLECTION</p>
-          <hr className="w-2/4 h border-none h-[1.5px] bg-gray-700 hidden"></hr>
+          <hr className="w-2/4  border-none h-[1.5px] bg-gray-700 hidden" />
         </NavLink>
         <NavLink to="/contact" className="flex flex-col items-center gap-1">
           <p>CONTACT</p>
-          <hr className="w-2/4 h border-none h-[1.5px] bg-gray-700 hidden"></hr>
+          <hr className="w-2/4  border-none h-[1.5px] bg-gray-700 hidden" />
         </NavLink>
         <NavLink to="/about" className="flex flex-col items-center gap-1">
           <p>ABOUT</p>
-          <hr className="w-2/4 h border-none h-[1.5px] bg-gray-700 hidden"></hr>
+          <hr className="w-2/4  border-none h-[1.5px] bg-gray-700 hidden" />
         </NavLink>
         <NavLink to="/login" className="flex flex-col items-center gap-1">
           <p>ADMIN</p>
-          <hr className="w-2/4 h border-none h-[1.5px] bg-gray-700 hidden"></hr>
+          <hr className="w-2/4  border-none h-[1.5px] bg-gray-700 hidden" />
         </NavLink>
       </ul>
       {/* third div */}
+
       <div className="flex items-center gap-6">
         <img
           onClick={() => {
@@ -51,19 +52,27 @@ const Navbar = () => {
           src={search_icon}
           className="w-5 cursor-pointer"
         ></img>
+
         <div className="group relative">
           <img src={profile_icon} className="w-5 cursor-pointer"></img>
           <div className="group-hover:block hidden absolute dropdown-menu right-0 pt-4 ">
             <div className="flex flex-col gap-2 w-36 py-3 px-5 bg-slate-100 text-gray-500 rounded">
               <p className="cursor pointer hover:text-black">My profile</p>
-              <p className="cursor pointer hover:text-black">Orders</p>
+              <Link to="/orders">
+                <p className="cursor pointer hover:text-black">Orders</p>
+              </Link>
               <p className="cursor pointer hover:text-black">Logout</p>
             </div>
           </div>
         </div>
+
         <Link to="/cart" className="relative">
-          <img src={cart_icon} className="w-5 min-w-5 "></img>
+          <img src={cart_icon} alt="" className="w-5 min-w-5 "></img>
+          <p className="absolute right-[-5px] bottom-[-5px] w-4 text-center leading-4 bg-black text-white aspect-square rounded-full text-[8px]">
+            {countProduct()}
+          </p>
         </Link>
+
         <img
           onClick={() => {
             SetVisible(true);
@@ -74,7 +83,6 @@ const Navbar = () => {
         ></img>
       </div>
       {/* sidebar menu */}
-
       <div
         className={`absolute top-0 right-0 bottom-0 overflow-hidden bg-white transition-all ${
           visible ? "w-full" : "w-0"
@@ -85,8 +93,11 @@ const Navbar = () => {
             className="flex items-center gap-4 p-3 cursor-pointer"
             onClick={() => SetVisible(false)}
           >
-            <img src={dropdown_icon} className="h-5 rotate-180"></img>
-            <p>Back</p>
+            <img
+              src={dropdown_icon}
+              className="h-5 rotate-180 cursor-pointer"
+            ></img>
+            <p className="cursor-pointer">Back</p>
           </div>
           {/*  */}
           <NavLink
@@ -96,8 +107,7 @@ const Navbar = () => {
             className="py-2 pl-6 border"
             to="/"
           >
-            {" "}
-            HOME{" "}
+            HOME
           </NavLink>
           <NavLink
             onClick={() => {
@@ -106,7 +116,7 @@ const Navbar = () => {
             className="py-2 pl-6 border"
             to="/collection"
           >
-            COLLECTION{" "}
+            COLLECTION
           </NavLink>
           <NavLink
             onClick={() => {
@@ -115,7 +125,6 @@ const Navbar = () => {
             className="py-2 pl-6 border"
             to="/contact"
           >
-            {" "}
             CONTACT
           </NavLink>
           <NavLink
@@ -125,7 +134,6 @@ const Navbar = () => {
             className="py-2 pl-6 border "
             to="/about"
           >
-            {" "}
             ABOUT
           </NavLink>
           <NavLink
@@ -133,9 +141,8 @@ const Navbar = () => {
               SetVisible(false);
             }}
             className="py-2  pl-6 bordr"
-            to="/login"
+            to=""
           >
-            {" "}
             ADMIN
           </NavLink>
         </div>

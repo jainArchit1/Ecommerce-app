@@ -5,12 +5,12 @@ import ProductItem from "./ProductItem";
 
 const LatestCollection = () => {
   const { products } = useContext(ShopContext);
-  console.log("ghi");
-  console.log(products);
+
+  // console.log(products);
   const [latestproducts, setLatestProducts] = useState([]);
   useEffect(() => {
     setLatestProducts(products.slice(0, 10));
-  }, []);
+  }, [products]);
   return (
     <div className="my-10">
       <div className="text-center py-8 text-3xl">
@@ -24,7 +24,7 @@ const LatestCollection = () => {
           <ProductItem
             key={product._id}
             id={product._id}
-            image={product.image}
+            images={product.images}
             name={product.name}
             price={product.price}
           ></ProductItem>

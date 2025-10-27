@@ -10,18 +10,20 @@ const Cart = () => {
   const [cartData, setCartData] = useState([]);
 
   useEffect(() => {
-    console.log("cartItem" + cartItem);
     let Tempdata = [];
     for (let key in cartItem) {
       for (let key2 in cartItem[key]) {
-        Tempdata.push({
-          _id: key,
-          size: key2,
-          quantity: cartItem[key][key2],
-        });
+        if (cartItem[key][key2] > 0) {
+          Tempdata.push({
+            _id: key,
+            size: key2,
+            quantity: cartItem[key][key2],
+          });
+        }
       }
     }
-    console.log("data", Tempdata);
+
+    // console.log("data", Tempdata);
     setCartData(Tempdata);
   }, [cartItem]);
 
@@ -34,7 +36,10 @@ const Cart = () => {
         {cartData.map((item, index) => {
           const data = products.find((product) => product._id === item._id);
           return (
-            <div className="py-4  border-t border-b text-gray-700 grid grid-cols-[4fr_0.5fr_0.5fr] sm:grid-cols-[4fr_2fr_0.5fr] item-center gap-4">
+            <div
+              key={index}
+              className="py-4  border-t border-b text-gray-700 grid grid-cols-[4fr_0.5fr_0.5fr] sm:grid-cols-[4fr_2fr_0.5fr] item-center gap-4"
+            >
               <div className="flex items-start gap-6">
                 <img src={data.image[0]} className="w-16 sm:w-20"></img>
                 <div className="">
@@ -53,9 +58,18 @@ const Cart = () => {
                 </div>
               </div>
               <input
+                onChange={(e) => {
+                  e.target.value === "" || e.target.value === "0"
+                    ? null
+                    : updateQuantity(
+                        item._id,
+                        item.size,
+                        Number(e.target.value)
+                      );
+                }}
                 type="number"
-                value={item.quantity}
                 min={1}
+                defaultValue={item.quantity}
                 className="border max-w-10 sm:max-w-20 px-1 sm:px-2 py-1"
               ></input>
               <img
